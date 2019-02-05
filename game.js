@@ -1,4 +1,4 @@
-let = userClickedPattern = [];
+let userClickedPattern = [];
 let gamePattern = [];
 
 let buttonColors = ["red", "blue", "green", "yellow"];
