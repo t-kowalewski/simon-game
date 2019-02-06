@@ -5,27 +5,16 @@ let buttonColors = ["red", "blue", "green", "yellow"];
 let started = false;
 let level = 0;
 
-if (!started) {
-    $(document).on("keydown", function() {
-            $("#level-title").text("Level " + level);
-            nextSequence();
-            started = true;
-    });
-}
+// Start check
+$(document).on("keydown", function() {
+    if (!started) {
+        nextSequence();
+        started = true;
+    }
+});
 
 
-// User response / answer
-$(".btn").click(function(event) {
-    let userChosenColor = event.target.id;
-    userClickedPattern.push(userChosenColor);
-
-    playSound(userChosenColor);
-    animatePress(userChosenColor);
-    checkAnswer(userClickedPattern.length - 1);
-})
-
-
-// Function - Game Mechanics / Blink sequence
+// Function - Game Mechanics / Blink sequence - Each Level
 function nextSequence() {
     userClickedPattern = [];
 
@@ -45,18 +34,27 @@ function nextSequence() {
     playSound(randomChosenColor);
 }
 
+// User response / answer
+$(".btn").click(function(event) {
+    let userChosenColor = event.target.id;
+    userClickedPattern.push(userChosenColor);
 
-// Function - Check user answer
+    playSound(userChosenColor);
+    animatePress(userChosenColor);
+    checkAnswer(userClickedPattern.length - 1);
+});
+
+
+// Function - Check user answer - Check pattern
 function checkAnswer(currentLevel) {
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
-        console.log("right");
         if (userClickedPattern.length === gamePattern.length) {
             setTimeout(function () {
                 nextSequence()
             }, 1000);
         }
     }
-    // 
+
     else {
         playSound("wrong");
         $("body").addClass("game-over");
@@ -66,11 +64,11 @@ function checkAnswer(currentLevel) {
         $("#level-title").text("Game Over, Press Any Key to Restart");
         
         startOver();
-        console.log("wrong");
     }
-    console.log("user clicks", userClickedPattern);
-    console.log("game clicks", gamePattern);
+    // console.log("game arr", gamePattern);
+    // console.log("user clicks", userClickedPattern);
 }
+
 
 // ===== Additional functions =====
 
