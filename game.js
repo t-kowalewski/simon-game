@@ -6,14 +6,10 @@ let started = false;
 let level = 0;
 
 if (!started) {
-    // $(document).on("keypress", nextSequence);
-
-    $(document).on("keydown", function(event) {
-        if (event.key === "a" || event.key === "A") {
+    $(document).on("keydown", function() {
             $("#level-title").text("Level " + level);
             nextSequence();
             started = true;
-        }
     });
 }
 
